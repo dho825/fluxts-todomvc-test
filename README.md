@@ -27,7 +27,7 @@ Once you've built the project you can open `public/index.html` in your browser.
 
 
 
-## Differences to James Brantly's reactconf
+## Differences between James Brantly's reactconf and this repo
 
 James Brantly's reactconf uses [webpack](http://webpack.github.io/) and [ts-jsx-loader](https://github.com/jbrantly/ts-jsx-loader).
 This repo uses [grunt](http://gruntjs.com/) and [grunt-text-replace](https://github.com/yoniholmes/grunt-text-replace) with
@@ -37,4 +37,4 @@ The main reason for [choosing browserify over webpack](http://blog.namangoel.com
 browserify injects node.js polyfills like [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter),
 which is i.e. used by [flux-todomvc](https://github.com/facebook/flux/tree/master/examples/flux-todomvc).
 
-This repo supports minification using Google's Closusure Compiler.
+This repo supports minification using Google's Closure Compiler.
