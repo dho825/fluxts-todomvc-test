@@ -2,12 +2,40 @@
   "name": "PicturePurrfect",
   "version": "1.0.0",
   "description": "Demonstration of React integration with TypeScript and Flow",
-  "dependencies": {
-    "jsx-loader": "^0.12.2",
-    "react": "^0.13.0-beta.1",
-    "ts-jsx-loader": "^0.1.0",
-    "ts-loader": "^0.2.2"
+  "author": "James Brantly, Bernd Paradies",
+  "license": "MIT",
+  "repository": "https://github.com/jbrantly/reactconf",
+  "scripts": {
+    "start": "grunt serve",
+    "test": "grunt test"
   },
-  "author": "James Brantly",
-  "license": "MIT"
+  "devDependencies": {
+    "closure-compiler": "~0.2.6",
+    "grunt": "~0.4.5",
+    "grunt-browserify": "^3.5.0",
+    "grunt-closure-compiler": "0.0.21",
+    "grunt-closure-tools": "~0.9.7",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-npm-install": "^0.1.0",
+    "grunt-run": "^0.2.4",
+    "grunt-text-replace": "^0.4.0",
+    "grunt-ts": "^3.0.0",
+    "grunt-tsd": "^0.1.0",
+    "grunt-tslint": "~0.4.1",
+    "load-grunt-config": "^0.14.0",
+    "react-tools": "^0.12.2",
+    "time-grunt": "~0.3.1",
+    "tslint": "~0.4.9",
+    "typescript": "^1.4.1"
+  },
+  "peerDependencies": {
+    "grunt-cli": "*",
+    "tsd": "*"
+  },
+  "dependencies": {
+    "react": "^0.13.0-beta.1"
+  }
 }

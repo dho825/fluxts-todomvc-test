@@ -1,17 +1,17 @@
-// Type definitions for React 0.13.0
+// Type definitions for React 0.12.1
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
+// Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module React {
     //
-    // React Elements 
+    // React Elements
     // ----------------------------------------------------------------------
-    
-    type ReactType = ComponentClass<any, any, any> | string;
+
+    type ReactType = ComponentClass<any> | string;
 
     interface ReactElement<P> {
-        type: ComponentClass<P, any, any> | string;
+        type: ComponentClass<P> | string;
         props: P;
         key: number | string;
         ref: string;
@@ -21,7 +21,7 @@ declare module React {
     interface ReactSVGElement extends ReactElement<SVGAttributes> {}
 
     //
-    // React Nodes 
+    // React Nodes
     // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
@@ -33,68 +33,21 @@ declare module React {
     type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
-    // React Components 
+    // React Components
     // ----------------------------------------------------------------------
 
-    interface ComponentLifecycle<P, S, C> {
-        componentWillMount?(): void;
-        componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P, nextContext: C): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: C): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S, nextContext: C): void;
-        componentDidUpdate?(prevProps: P, prevState: S, prevContext: C): void;
-        componentWillUnmount?(): void;
-    }
-    
-    // "modern" ES6 classes
-    class Component<P, S, C> implements ComponentLifecycle<P, S, C> {
-        constructor(props: P, context: C);
-        // static members can't be type checked with generics. However, see ComponentClass<P, S, C>
-        static defaultProps: any;
-        static propTypes: ValidationMap<any>;
-        static contextTypes: ValidationMap<any>;
-        static childContextTypes: ValidationMap<any>;
-        static displayName: string;
-        setState(state: S, callback?: () => any): void;
-        forceUpdate(): void;
-        props: P;
-        state: S;
-        context: C;
-        refs: {
-            [key: string]: Component<any, any, any>
-        };
-    }
-    
-    interface ComponentClass<P, S, C> {
-        new (props: P, context: C): Component<P, S, C>;
-        // can cast to get type checking for generics if desired
-        defaultProps?: P;
+    interface ComponentStatics<P> {
+        displayName?: string;
         getDefaultProps?(): P;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap<C>;
-        childContextTypes?: ValidationMap<any>;
-        displayName?: string;
     }
-    
-    // "classic" createClass
-    class ClassicComponent<P, S, C> extends Component<P, S, C> {
-        replaceState(nextState: S, callback?: () => any): void;
-        getDOMNode<TElement extends Element>(): TElement;
-        getDOMNode(): Element;
-        isMounted(): boolean;
-        getInitialState(): S;
-        setProps(nextProps: P, callback?: () => any): void;
-        replaceProps(nextProps: P, callback?: () => any): void;
+
+    interface ComponentClass<P> extends ComponentStatics<P> {
+        // Deprecated in 0.12. See http://fb.me/react-legacyfactory
+        // new(props: P): ReactElement<P>;
+        // (props: P): ReactElement<P>;
     }
-    
-    interface ClassicComponentClass<P, S, C> extends ComponentClass<P, S, C> {
-        new (props: P, context: C): ClassicComponent<P, S, C>;
-    }
-    
-    interface ChildContextProvider<C> {
-        getChildContext: () => C;
-    }
-    
+
     //
     // ReactElement Factories
     // ----------------------------------------------------------------------
@@ -102,7 +55,7 @@ declare module React {
     interface ComponentFactory<P> {
         (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
-    
+
     interface HTMLFactory extends ComponentFactory<HTMLAttributes> {}
     interface SVGFactory extends ComponentFactory<SVGAttributes> {}
 
@@ -111,51 +64,75 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface TopLevelAPI {
-        createClass<P, S, C>(spec: ComponentSpec<P, S, C>): ClassicComponentClass<P, S, C>;
-        createElement<P>(type: { new (props: P, context: C): Component<P, S, C> } | string, props: P, ...children: ReactNode[]): ReactElement<P>;
-        createFactory<P>(type: ComponentClass<P, any, any> | string): ComponentFactory<P>;
-        render<P, S>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P, S, any>;
+        createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
+        createElement<P>(type: ComponentClass<P> | string, props: P, ...children: ReactNode[]): ReactElement<P>;
+        createFactory<P>(componentClass: ComponentClass<P>): ComponentFactory<P>;
+        render<P>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
         renderToStaticMarkup(element: ReactElement<any>): string;
         isValidElement(object: {}): boolean;
         initializeTouchEvents(shouldUseTouch: boolean): void;
-        findDOMNode(component: Component<any, any, any>): Element;
-        findDOMNode<TElement extends Element>(component: Component<any, any, any>): TElement;
     }
 
     //
     // Component API
     // ----------------------------------------------------------------------
 
-    class DOMComponent<P> extends ClassicComponent<P, any, any> {
+    interface Component<P> {
+        // Use this overload to cast the returned element to a more specific type.
+        // Eg: var name = this.refs['name'].getDOMNode<HTMLInputElement>().value;
+        getDOMNode<TElement extends Element>(): TElement;
+        getDOMNode(): Element;
+        isMounted(): boolean;
+
+        props: P;
+        setProps(nextProps: P, callback?: () => any): void;
+        replaceProps(nextProps: P, callback?: () => any): void;
+    }
+
+    interface DOMComponent<P> extends Component<P> {
         tagName: string;
     }
 
     interface HTMLComponent extends DOMComponent<HTMLAttributes> {}
     interface SVGComponent extends DOMComponent<SVGAttributes> {}
 
+    interface CompositeComponent<P, S> extends Component<P>, ComponentSpec<P, S> {
+        state: S;
+        setState(nextState: S, callback?: () => any): void;
+        replaceState(nextState: S, callback?: () => any): void;
+        forceUpdate(callback?: () => any): void;
+        refs: {
+            [key: string]: Component<any>
+        };
+    }
+
     //
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
-    
-    interface Mixin<P, S, C> extends ComponentLifecycle<P, S, C> {
-        mixins?: Mixin<P, S, C>;
+
+    interface Mixin<P, S> extends ComponentStatics<P> {
+        mixins?: Mixin<P, S>;
         statics?: {
             [key: string]: any;
         };
 
-        displayName?: string;
-        propTypes?: ValidationMap<any>;
-        contextTypes?: ValidationMap<any>;
-        childContextTypes?: ValidationMap<any>
-        
+        // Definition methods
         getInitialState?(): S;
-        getDefaultProps?(): P;
+
+        // Delegate methods
+        componentWillMount?(): void;
+        componentDidMount?(): void;
+        componentWillReceiveProps?(nextProps: P): void;
+        shouldComponentUpdate?(nextProps: P, nextState: S): boolean;
+        componentWillUpdate?(nextProps: P, nextState: S): void;
+        componentDidUpdate?(prevProps: P, prevState: S): void;
+        componentWillUnmount?(): void;
     }
 
-    interface ComponentSpec<P, S, C> extends Mixin<P, S, C> {
-        render(): ReactElement<any>;
+    interface ComponentSpec<P, S> extends Mixin<P, S> {
+        render(): ReactElementBase<any, any>;
     }
 
     //
@@ -264,7 +241,7 @@ declare module React {
     // Attributes
     // ----------------------------------------------------------------------
 
-    interface ReactAttributes {
+    export interface ReactAttributes {
         children?: ReactNode;
         key?: number | string;
         ref?: string;
@@ -440,7 +417,7 @@ declare module React {
 
     interface SVGAttributes extends ReactAttributes {
         cx?: SVGLength | SVGAnimatedLength;
-        cy?: any; 
+        cy?: any;
         d?: string;
         dx?: SVGLength | SVGAnimatedLength;
         dy?: SVGLength | SVGAnimatedLength;
@@ -485,7 +462,7 @@ declare module React {
     }
 
     //
-    // React.DOM 
+    // React.DOM
     // ----------------------------------------------------------------------
 
     interface ReactDOM {
@@ -692,8 +669,8 @@ declare module React {
         transitionLeave?: boolean;
     }
 
-    interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps, any, any> {}
-    interface TransitionGroup extends ComponentClass<TransitionGroupProps, any, any> {}
+    interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
+    interface TransitionGroup extends ComponentClass<TransitionGroupProps> {}
 
     //
     // React.addons (Mixins)
@@ -704,11 +681,11 @@ declare module React {
         requestChange(newValue: T): void;
     }
 
-    interface LinkedStateMixin extends Mixin<any, any, any> {
+    interface LinkedStateMixin extends Mixin<any, any> {
         linkState<T>(key: string): ReactLink<T>;
     }
 
-    interface PureRenderMixin extends Mixin<any, any, any> {
+    interface PureRenderMixin extends Mixin<any, any> {
     }
 
     //
@@ -774,34 +751,34 @@ declare module React {
     interface ReactTestUtils {
         Simulate: Simulate;
 
-        renderIntoDocument<P>(element: ReactElement<P>): Component<P, any, any>;
-        renderIntoDocument<C extends Component<any, any, any>>(element: ReactElement<any>): C;
+        renderIntoDocument<P>(element: ReactElement<P>): Component<P>;
+        renderIntoDocument<C extends Component<any>>(element: ReactElement<any>): C;
 
         mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
 
         isElementOfType(element: ReactElement<any>, type: ReactType): boolean;
-        isDOMComponent(instance: Component<any, any, any>): boolean;
-        isCompositeComponent(instance: Component<any, any, any>): boolean;
-        isCompositeComponentWithType(instance: Component<any, any, any>, type: ComponentClass<any, any, any>): boolean;
-        isTextComponent(instance: Component<any, any, any>): boolean;
+        isDOMComponent(instance: Component<any>): boolean;
+        isCompositeComponent(instance: Component<any>): boolean;
+        isCompositeComponentWithType(instance: Component<any>, type: ComponentClass<any>): boolean;
+        isTextComponent(instance: Component<any>): boolean;
 
-        findAllInRenderedTree(tree: Component<any, any, any>, fn: (i: Component<any, any, any>) => boolean): Component<any, any, any>;
+        findAllInRenderedTree(tree: Component<any>, fn: (i: Component<any>) => boolean): Component<any>;
 
-        scryRenderedDOMComponentsWithClass(tree: Component<any, any, any>, className: string): DOMComponent<any>[];
-        findRenderedDOMComponentWithClass(tree: Component<any, any, any>, className: string): DOMComponent<any>;
+        scryRenderedDOMComponentsWithClass(tree: Component<any>, className: string): DOMComponent<any>[];
+        findRenderedDOMComponentWithClass(tree: Component<any>, className: string): DOMComponent<any>;
 
-        scryRenderedDOMComponentsWithTag(tree: Component<any, any, any>, tagName: string): DOMComponent<any>[];
-        findRenderedDOMComponentWithTag(tree: Component<any, any, any>, tagName: string): DOMComponent<any>;
+        scryRenderedDOMComponentsWithTag(tree: Component<any>, tagName: string): DOMComponent<any>[];
+        findRenderedDOMComponentWithTag(tree: Component<any>, tagName: string): DOMComponent<any>;
 
-        scryRenderedComponentsWithType<P, S, C>(
-            tree: Component<any, any, any>, type: ComponentClass<P, S, C>): Component<P, S, C>[];
-        scryRenderedComponentsWithType<C extends Component<any, any, any>>(
-            tree: Component<any, any, any>, type: ComponentClass<any, any, any>): C[];
+        scryRenderedComponentsWithType<P, S>(
+            tree: Component<any>, type: ComponentClass<P>): CompositeComponent<P, S>[];
+        scryRenderedComponentsWithType<C extends CompositeComponent<any, any>>(
+            tree: Component<any>, type: ComponentClass<any>): C[];
 
-        findRenderedComponentWithType<P, S, C>(
-            tree: Component<any, any, any>, type: ComponentClass<P, S, C>): Component<P, S, C>;
-        findRenderedComponentWithType<C extends Component<any, any, any>>(
-            tree: Component<any, any, any>, type: ComponentClass<any, any, any>): C;
+        findRenderedComponentWithType<P, S>(
+            tree: Component<any>, type: ComponentClass<P>): CompositeComponent<P, S>;
+        findRenderedComponentWithType<C extends CompositeComponent<any, any>>(
+            tree: Component<any>, type: ComponentClass<any>): C;
     }
 
     interface SyntheticEventData {
@@ -840,7 +817,7 @@ declare module React {
 
     interface EventSimulator {
         (element: Element, eventData?: SyntheticEventData): void;
-        (descriptor: Component<any, any, any>, eventData?: SyntheticEventData): void;
+        (descriptor: Component<any>, eventData?: SyntheticEventData): void;
     }
 
     interface Simulate {
@@ -887,7 +864,6 @@ declare module React {
         DOM: ReactDOM;
         PropTypes: ReactPropTypes;
         Children: ReactChildren;
-        Component: ComponentClass<any, any, any>;
     }
 
     //
