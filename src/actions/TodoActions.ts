@@ -9,10 +9,16 @@
  * TodoActions
  */
 
+'use strict';
+
 import AppDispatcher = require('../dispatcher/AppDispatcher');
 import TodoConstants = require('../constants/TodoConstants');
 
+
 class TodoActionsStatic {
+
+  // so jshint won't bark
+  public TodoConstants = TodoConstants;
 
   /**
    * @param  {string} text
@@ -83,7 +89,7 @@ class TodoActionsStatic {
     });
   }
 
-};
+}
 
 var TodoActions: TodoActionsStatic = new TodoActionsStatic();
 

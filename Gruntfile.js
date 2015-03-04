@@ -1,5 +1,5 @@
 /* jshint camelcase: false */
-
+var path = require('path');
 
 module.exports = function(grunt) {
     'use strict';
@@ -16,7 +16,8 @@ module.exports = function(grunt) {
         dist: {
             client: 'dist/public',
             server: 'dist/server'
-        }
+        },
+        cwd: path.resolve('.')
     };
 
     // We need the user name for config_ccv_{user name}.json

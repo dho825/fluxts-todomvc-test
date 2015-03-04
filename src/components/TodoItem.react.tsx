@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+'use strict';
+
 import React = require('react/addons');
 var ReactPropTypes = React.PropTypes;
 import TodoActions = require('../actions/TodoActions');

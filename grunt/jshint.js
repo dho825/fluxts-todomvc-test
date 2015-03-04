@@ -6,7 +6,14 @@ module.exports =  function (grunt) {
     return {
 
         all: [
-          'Gruntfile.js',
+          'Gruntfile.js'
+
+          // jslint is complaining too much about Typescript's generated code, i.e. enums and __extends
+          // '<%= config.build %>/js/**/*.js'
+
+          // jslinting bundle.js is a pain, because browserify adds its dirty minified _prelude.js which gets merged with unsanitized
+          // react and flux JS files.
+
           // '<%= config.public %>/js/bundle.js'
         ],
         options: {

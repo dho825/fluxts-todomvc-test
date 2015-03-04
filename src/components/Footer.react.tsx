@@ -9,6 +9,8 @@
 
 ///<reference path="../../typings/todomfc/todomfc.d.ts"/>
 
+'use strict';
+
 import React = require('react/addons');
 import ReactComponent = require('../react/ReactComponent');
 
@@ -95,7 +97,6 @@ class Footer extends ReactComponent<FooterProps,any> {
       </footer>`)
     );
   }
-
 }
 
 export = Footer;
