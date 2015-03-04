@@ -41,7 +41,7 @@ class TodoActionsStatic {
    * @param  {object} todo
    */
   public toggleComplete(todo: TodoData): void {
-    var id = todo.id;
+    var id: string = todo.id;
     if (todo.complete) {
       AppDispatcher.dispatch({
         actionType: TodoConstants.TODO_UNDO_COMPLETE,

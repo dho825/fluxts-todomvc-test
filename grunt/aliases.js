@@ -13,8 +13,10 @@ module.exports = function (grunt) {
         'copy:tsx',
         'copy:typings',
         'replace:jsx',
+        'tslint:all',
         'ts:app',
         'browserify:dist',
+        'jshint:all',
         'closureCompiler:bundle'
     ]);
 

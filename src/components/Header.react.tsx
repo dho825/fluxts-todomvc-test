@@ -23,6 +23,20 @@ interface HeaderElement
 
 class Header extends ReactComponent<HeaderProps,any> {
 
+
+  /**
+   * Event handler called within TodoTextInput.
+   * Defining this here allows TodoTextInput to be used in multiple places
+   * in different ways.
+   * @param {string} text
+   */
+  private _onSave: (text: string) => void =
+    (text: string): void => {
+      if (text.trim()){
+        TodoActions.create(text);
+      }
+    };
+
   /**
    * @return {object}
    */
@@ -38,18 +52,6 @@ class Header extends ReactComponent<HeaderProps,any> {
       </header>`)
     );
   }
-
-  /**
-   * Event handler called within TodoTextInput.
-   * Defining this here allows TodoTextInput to be used in multiple places
-   * in different ways.
-   * @param {string} text
-   */
-  private _onSave = (text: string) => {
-    if (text.trim()){
-      TodoActions.create(text);
-    }
-  };
 
 };
 

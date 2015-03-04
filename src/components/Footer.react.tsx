@@ -13,7 +13,7 @@ import React = require('react/addons');
 import ReactComponent = require('../react/ReactComponent');
 
 
-var ReactPropTypes = React.PropTypes;
+var ReactPropTypes: React.ReactPropTypes = React.PropTypes;
 import TodoActions = require('../actions/TodoActions');
 
 interface FooterProps
@@ -39,30 +39,41 @@ class Footer extends ReactComponent<FooterProps,any> {
   };
 
   /**
+   * Event handler to delete all completed TODOs
+   */
+  private _onClearCompletedClick: () => void =
+    (): void => {
+      TodoActions.destroyCompleted();
+    };
+
+  /**
    * @return {object}
    */
   public render(): React.ReactDOMElement<FooterElement> {
 
     var allTodos: MapStringTo<TodoData> = this.props.allTodos;
     var total: number = Object.keys(allTodos).length;
+    var completed: number = 0;
+    var key: string;
+    var itemsLeft: number;
+    var itemsLeftPhrase: string;
+    var clearCompletedButton:  React.ReactDOMElement<ClearCompletedButton>;
 
     if (total === 0) {
       return null;
     }
 
-    var completed: number = 0;
-    for (var key in allTodos) {
+    for (key in allTodos) {
       if (allTodos[key].complete) {
         completed++;
       }
     }
 
-    var itemsLeft: number = total - completed;
-    var itemsLeftPhrase: string = itemsLeft === 1 ? ' item ' : ' items ';
+    itemsLeft = total - completed;
+    itemsLeftPhrase = itemsLeft === 1 ? ' item ' : ' items ';
     itemsLeftPhrase += 'left';
 
     // Undefined and thus not rendered if no completed items are left.
-    var clearCompletedButton:  React.ReactDOMElement<ClearCompletedButton>;
     if (completed) {
       clearCompletedButton =
           React.jsx(`<button
@@ -85,12 +96,6 @@ class Footer extends ReactComponent<FooterProps,any> {
     );
   }
 
-  /**
-  * Event handler to delete all completed TODOs
-  */
-  private _onClearCompletedClick = () => {
-      TodoActions.destroyCompleted();
-  };
 }
 
 export = Footer;

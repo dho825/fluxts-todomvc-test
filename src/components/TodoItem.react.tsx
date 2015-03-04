@@ -32,6 +32,30 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
     todo: ReactPropTypes.object.isRequired
   };
 
+
+  private _onToggleComplete = () => {
+    TodoActions.toggleComplete(this.props.todo);
+  };
+
+  private _onDoubleClick = () => {
+    this.setState({isEditing: true});
+  };
+
+  /**
+   * Event handler called within TodoTextInput.
+   * Defining this here allows TodoTextInput to be used in multiple places
+   * in different ways.
+   * @param  {string} text
+   */
+  private _onSave = (text: string) => {
+    TodoActions.updateText(this.props.todo.id, text);
+    this.setState({isEditing: false});
+  };
+
+  private _onDestroyClick = () => {
+    TodoActions.destroy(this.props.todo.id);
+  };
+
   public getDerivedInitialState(): TodoItemState {
     return {
       isEditing: false
@@ -84,28 +108,6 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
     `));
   }
 
-  private _onToggleComplete = () => {
-    TodoActions.toggleComplete(this.props.todo);
-  };
-
-  private _onDoubleClick = () => {
-    this.setState({isEditing: true});
-  };
-
-  /**
-   * Event handler called within TodoTextInput.
-   * Defining this here allows TodoTextInput to be used in multiple places
-   * in different ways.
-   * @param  {string} text
-   */
-  private _onSave = (text: string) => {
-    TodoActions.updateText(this.props.todo.id, text);
-    this.setState({isEditing: false});
-  };
-
-  private _onDestroyClick = () => {
-    TodoActions.destroy(this.props.todo.id);
-  };
 
 };
 

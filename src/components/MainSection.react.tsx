@@ -8,7 +8,7 @@
  */
 
 import React = require('react/addons');
-var ReactPropTypes = React.PropTypes;
+var ReactPropTypes: React.ReactPropTypes = React.PropTypes;
 import TodoActions = require('../actions/TodoActions');
 import TodoItem = require('./TodoItem.react');
 import ReactComponent = require('../react/ReactComponent');
@@ -25,21 +25,37 @@ class MainSection extends ReactComponent<TodoState,any> {
     areAllComplete: ReactPropTypes.bool.isRequired
   };
 
+
+  /**
+   * Event handler to mark all TODOs as complete
+   */
+  private _onToggleCompleteAll: () => void =
+    (): void => {
+      TodoActions.toggleCompleteAll();
+    };
+
   /**
    * @return {object}
    */
   public render(): React.ReactDOMElement<MainSectionElement>  {
+    var key: string;
+    var todos: React.ReactElement<TodoItemProps>[];
+    var allTodos: MapStringTo<TodoData>;
+
     // This section should be hidden by default
     // and shown when there are todos.
     if (Object.keys(this.props.allTodos).length < 1) {
       return null;
     }
 
-    var allTodos = this.props.allTodos;
-    var todos: React.ReactElement<TodoItemProps>[] = [];
+    allTodos = this.props.allTodos;
+    todos = [];
 
-    for (var key in allTodos) {
-      todos.push(React.jsx(`<TodoItem key={key} todo={allTodos[key]} />`));
+    for (key in allTodos) {
+      if( allTodos.hasOwnProperty(key) )
+      {
+        todos.push(React.jsx(`<TodoItem key={key} todo={allTodos[key]} />`));
+      }
     }
 
     return (
@@ -56,12 +72,6 @@ class MainSection extends ReactComponent<TodoState,any> {
     );
   }
 
-  /**
-   * Event handler to mark all TODOs as complete
-   */
-  private _onToggleCompleteAll = () => {
-    TodoActions.toggleCompleteAll();
-  };
 
 };
 

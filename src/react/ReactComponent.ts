@@ -3,6 +3,15 @@ import React = require('react/addons');
 
 class ReactComponent<P,S> extends React.Component<P,S>
 {
+
+  public getDerivedInitialState(): S {
+    return null;
+  }
+
+  public getInitialState = (): S => {
+    return this.getDerivedInitialState();
+  };
+
   /**
    * @see React.createClass
    */
@@ -16,14 +25,6 @@ class ReactComponent<P,S> extends React.Component<P,S>
 
     // Nasty trick to avoid warnings.
     this.getInitialState = null;
-  }
-
-  public getInitialState = (): S => {
-    return this.getDerivedInitialState();
-  };
-
-  public getDerivedInitialState(): S {
-    return null;
   }
 }
 

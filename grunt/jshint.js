@@ -5,7 +5,10 @@ module.exports =  function (grunt) {
     'use strict';
     return {
 
-        all: ['Gruntfile.js'],
+        all: [
+          'Gruntfile.js',
+          // '<%= config.public %>/js/bundle.js'
+        ],
         options: {
             jshintrc: '.jshintrc'
         }

@@ -40,19 +40,27 @@ function getTodoState(): TodoState {
 
 class TodoApp extends ReactComponent<TodoAppProps,TodoState> {
 
-  public displayName: string = "TodoApp";
+
+  /**
+   * Event handler for 'change' events coming from the TodoStore
+   */
+  private _onChange = () => {
+    this.setState(getTodoState());
+  };
+
+  public componentDidMount: () => void =
+    (): void => {
+      TodoStore.addChangeListener(this._onChange);
+    };
+
+  public componentWillUnmount: () => void =
+    (): void => {
+      TodoStore.removeChangeListener(this._onChange);
+    };
 
   public getDerivedInitialState(): TodoState {
     return getTodoState();
   }
-
-  public componentDidMount = () => {
-    TodoStore.addChangeListener(this._onChange);
-  };
-
-  public componentWillUnmount = () => {
-    TodoStore.removeChangeListener(this._onChange);
-  };
 
   /**
    * @return {object}
@@ -71,14 +79,6 @@ class TodoApp extends ReactComponent<TodoAppProps,TodoState> {
       </div>
   	`));
   }
-
-  /**
-   * Event handler for 'change' events coming from the TodoStore
-   */
-  private _onChange = () => {
-    this.setState(getTodoState());
-  };
-
 };
 
 export = TodoApp;

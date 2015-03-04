@@ -71,8 +71,11 @@ function update(id: string, updates: TodoUpdateData): void {
 
  */
 function updateAll(updates:TodoUpdateData): void {
-  for (var id in _todos) {
-    update(id, updates);
+  var id: string;
+  for (id in _todos) {
+    if(_todos.hasOwnProperty(id)) {
+      update(id, updates);
+    }
   }
 }
 
@@ -88,7 +91,8 @@ function destroy(id: string): void {
  * Delete all the completed TODO items.
  */
 function destroyCompleted(): void {
-  for (var id in _todos) {
+  var id: string;
+  for (id in _todos) {
     if (_todos[id].complete) {
       destroy(id);
     }
@@ -102,8 +106,10 @@ class TodoStoreStatic extends events.EventEmitter {
    * @return {boolean}
    */
   public areAllComplete(): boolean {
-    for (var id in _todos) {
-      if (!_todos[id].complete) {
+    var id: string;
+
+    for(id in _todos) {
+      if(!_todos[id].complete) {
         return false;
       }
     }

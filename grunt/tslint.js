@@ -10,10 +10,7 @@ module.exports =  function (grunt) {
         },
         all: {
             src: [
-                'src/**/*.ts',
-                'test/**/*.ts',
-                '!src/client/app/Version.ts',
-                '!src/server/app/Version.ts'
+                '<%= config.build %>/src/**/*.ts'
             ]
         }
     };

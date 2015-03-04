@@ -49,30 +49,6 @@ class TodoTextInput extends ReactComponent<any,TodoTextInputState> {
     value: ReactPropTypes.string
   };
 
-  public getDerivedInitialState(): TodoTextInputState {
-    return {
-      value: this.props.value || ''
-    };
-  }
-
-  /**
-   * @return {object}
-   */
-  public render(): React.ReactDOMElement<TodoTextInputElement> {
-    // this.state = this.state || this.getInitialState();
-    return (React.jsx(`
-      <input
-        className={this.props.className}
-        id={this.props.id}
-        placeholder={this.props.placeholder}
-        onBlur={this._save}
-        onChange={this._onChange}
-        onKeyDown={this._onKeyDown}
-        value={this.state.value}
-        autoFocus={true}
-      />
-    `));
-  }
 
   /**
    * Invokes the callback passed in as onSave, allowing this component to be
@@ -102,6 +78,32 @@ class TodoTextInput extends ReactComponent<any,TodoTextInputState> {
       this._save();
     }
   };
+
+  public getDerivedInitialState(): TodoTextInputState {
+    return {
+      value: this.props.value || ''
+    };
+  }
+
+  /**
+   * @return {object}
+   */
+  public render(): React.ReactDOMElement<TodoTextInputElement> {
+    // this.state = this.state || this.getInitialState();
+    return (React.jsx(`
+      <input
+        className={this.props.className}
+        id={this.props.id}
+        placeholder={this.props.placeholder}
+        onBlur={this._save}
+        onChange={this._onChange}
+        onKeyDown={this._onKeyDown}
+        value={this.state.value}
+        autoFocus={true}
+      />
+    `));
+  }
+
 };
 
 export = TodoTextInput;
