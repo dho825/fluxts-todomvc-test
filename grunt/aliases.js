@@ -8,7 +8,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'npm-install',
+    'tsd',
     'clean',
     'copy:tsx',
     'copy:typings',

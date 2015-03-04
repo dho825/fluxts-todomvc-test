@@ -6,7 +6,7 @@ module.exports =  function (grunt) {
   return {
     dist: {
       files: {
-          '<%= config.build %>/bundle.js': ['<%= config.build %>/js/*.js']
+          '<%= config.public %>/js/bundle.js': ['<%= config.build %>/js/*.js']
       },
 
       // Doesn't work at all:

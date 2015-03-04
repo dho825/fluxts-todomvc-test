@@ -5,9 +5,6 @@
   "path": ".",
   "bundle": "typings/tsd.d.ts",
   "installed": {
-    "react/react.d.ts": {
-      "commit": "bb465f2cc799a41a7ccb688c6d1a8f5583dda12d"
-    },
     "browserify/browserify.d.ts": {
       "commit": "bb465f2cc799a41a7ccb688c6d1a8f5583dda12d"
     },
