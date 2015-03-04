@@ -14,7 +14,7 @@ module.exports =  function (grunt) {
         debug: true,
         // again, use the unminified dev prelude for easier debugging
         prelude: grunt.file.read("./node_modules/grunt-browserify/node_modules" +
-        "/browserify/node_modules/browser-pack/prelude.js"),
+        "/browserify/node_modules/browser-pack/prelude.js")
       }
     }
   };

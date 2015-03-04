@@ -29,7 +29,6 @@ module.exports =  function (grunt) {
                     from: /React\.jsx\(`([^`\\]*(\\.[^`\\]*)*)`\)/gm,
                     to: replace
                 },
-                /*
                 // using multiline comments
                 {
                     from: /React\.jsx\(\/\*((.|[\r\n])*?)\*\/\)/gm,
@@ -40,7 +39,6 @@ module.exports =  function (grunt) {
                     from: /\/\*jsx\*\/((.|[\r\n])*?)\/\*jsx\*\//gm,
                     to: replace('$1')
                 }
-                */
             ]
         }
     };
