@@ -2,21 +2,25 @@
 // @see https://github.com/yoniholmes/grunt-text-replace
 // @see https://github.com/jbrantly/ts-jsx-loader/blob/master/index.js
 
+'use strict';
+
 var reactTools = require('react-tools');
 
 module.exports =  function (grunt) {
-    'use strict';
 
     var replace = function (matchedWord, index, fullText, regexMatches) {
-        var jsx = regexMatches[0];
-        var reactCode;
+      var jsx = regexMatches && regexMatches[0];
+      var reactCode;
+      if( jsx )
+      {
         try {
-            reactCode = reactTools.transform(jsx, { harmony: false })
+          reactCode = reactTools.transform(jsx, { harmony: false })
         }
         catch (ex) {
-            console.error('Problem transforming the following:\n' + jsx + '\n\n' + ex);
+          console.error('Problem transforming the following:\n' + jsx + '\n\n' + ex);
         }
-        return '(' + reactCode + ')';
+      }
+      return '(' + reactCode + ')';
     };
 
     return {
