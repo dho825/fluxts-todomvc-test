@@ -67,7 +67,7 @@ class TodoApp extends ReactComponent<TodoAppProps,TodoState> {
   /**
    * @return {object}
    */
-  public render(): React.ReactDOMElement<TodoAppElement> {
+  public render(): React.DOMElement<TodoAppElement> {
     // this.state = this.state || this.getInitialState();
 
   	return (React.jsx(`

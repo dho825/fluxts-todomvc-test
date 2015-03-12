@@ -14,7 +14,7 @@
 ///<reference path="../../typings/flux/flux.d.ts"/>
 
 import flux = require('flux');
-var Dispatcher: flux.Dispatcher = new flux.Dispatcher();
+var Dispatcher: flux.Dispatcher<TodoAction> = new flux.Dispatcher();
 
 
 export = Dispatcher;

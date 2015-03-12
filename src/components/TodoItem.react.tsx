@@ -67,7 +67,7 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
   /**
    * @return {object}
    */
-  public render(): React.ReactDOMElement<TodoItemElement> {
+  public render(): React.DOMElement<TodoItemElement> {
     var todo = this.props.todo;
     // this.state = this.state || this.getInitialState();
 

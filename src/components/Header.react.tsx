@@ -42,7 +42,7 @@ class Header extends ReactComponent<HeaderProps,any> {
   /**
    * @return {object}
    */
-  public render(): React.ReactDOMElement<HeaderElement> {
+  public render(): React.DOMElement<HeaderElement> {
     return (
         React.jsx(`<header id="header">
         <h1>todos</h1>

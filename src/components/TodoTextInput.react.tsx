@@ -90,7 +90,7 @@ class TodoTextInput extends ReactComponent<any,TodoTextInputState> {
   /**
    * @return {object}
    */
-  public render(): React.ReactDOMElement<TodoTextInputElement> {
+  public render(): React.DOMElement<TodoTextInputElement> {
     // this.state = this.state || this.getInitialState();
     return (React.jsx(`
       <input

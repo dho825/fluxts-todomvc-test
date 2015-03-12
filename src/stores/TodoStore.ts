@@ -30,13 +30,6 @@ interface TodoUpdateData
   text?: string;
 }
 
-interface TodoAction
-{
-  actionType: TodoConstants;
-  id: string;
-  text?: string;
-}
-
 /**
  * Create a TODO item.
  * @param  {string} text The content of the TODO

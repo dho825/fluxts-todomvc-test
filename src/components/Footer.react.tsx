@@ -51,7 +51,7 @@ class Footer extends ReactComponent<FooterProps,any> {
   /**
    * @return {object}
    */
-  public render(): React.ReactDOMElement<FooterElement> {
+  public render(): React.DOMElement<FooterElement> {
 
     var allTodos: MapStringTo<TodoData> = this.props.allTodos;
     var total: number = Object.keys(allTodos).length;
@@ -59,7 +59,7 @@ class Footer extends ReactComponent<FooterProps,any> {
     var key: string;
     var itemsLeft: number;
     var itemsLeftPhrase: string;
-    var clearCompletedButton:  React.ReactDOMElement<ClearCompletedButton>;
+    var clearCompletedButton:  React.DOMElement<ClearCompletedButton>;
 
     if (total === 0) {
       return null;

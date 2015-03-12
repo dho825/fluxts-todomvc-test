@@ -21,6 +21,13 @@ interface TodoItemProps
   todo: TodoData;
 }
 
+interface TodoAction
+{
+  actionType: number;
+  id?: string;
+  text?: string;
+}
+
 interface TodoTextInputElement
 {
   id: string;

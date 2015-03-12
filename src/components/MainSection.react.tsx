@@ -39,7 +39,7 @@ class MainSection extends ReactComponent<TodoState,any> {
   /**
    * @return {object}
    */
-  public render(): React.ReactDOMElement<MainSectionElement>  {
+  public render(): React.DOMElement<MainSectionElement>  {
     var key: string;
     var todos: React.ReactElement<TodoItemProps>[];
     var allTodos: MapStringTo<TodoData>;
