@@ -89,7 +89,7 @@ declare module "react/addons" {
     */
     
     interface CustomComponentClass<P> {
-        new(props?: P, context?: any): Component<P, any>;
+//        new(props?: P, context?: any): Component<P, any>;
 //        propTypes?: ValidationMap<P>;
 //        contextTypes?: ValidationMap<any>;
 //        childContextTypes?: ValidationMap<any>;
@@ -104,10 +104,12 @@ declare module "react/addons" {
     }
     
     function createElement<P>(
-        type: CustomComponentClass<P>,
+//        type: CustomComponentClass<P>,
+        type: (props?: P, context?: any) => Component<P, any>,
         props?: P,
         ...children: ReactNode[]): CustomReactElement<P>;
-    /* end */
+    
+    /* end Hotfix */
 
     function cloneElement<P>(
         element: DOMElement<P>,
