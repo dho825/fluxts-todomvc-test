@@ -22,11 +22,11 @@ interface TodoTextInputState
 
 interface TodoTextInputProps
 {
-  className: string;
-  id: string;
-  placeholder: string;
+  className?: string;
+  id?: string;
+  placeholder?: string;
   onSave: (value:string) => void;
-  value: string;
+  value?: string;
 }
 
 
@@ -41,9 +41,9 @@ interface InputEvent {
 // .../fluxts-todomvc/build/src/components/Header.react.ts(32,29):
 // error TS2345: Argument of type 'typeof TodoTextInput' is not assignable to parameter of type 'string'.
 
-class TodoTextInput extends ReactComponent<any,TodoTextInputState> {
+class TodoTextInput extends ReactComponent<TodoTextInputProps,TodoTextInputState> {
 
-  static propTypes: React.ValidationMap<TodoState> =  {
+  static propTypes: React.ValidationMap<TodoTextInputProps> =  {
     className: ReactPropTypes.string,
     id: ReactPropTypes.string,
     placeholder: ReactPropTypes.string,

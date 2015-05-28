@@ -71,7 +71,7 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
     var todo = this.props.todo;
     // this.state = this.state || this.getInitialState();
 
-    var input: React.ReactElement<TodoTextInputElement>;
+    var input: React.CustomReactElement<TodoTextInputProps>;
     if (this.state.isEditing) {
       input = React.jsx(`
         <TodoTextInput

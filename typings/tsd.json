@@ -6,22 +6,22 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "browserify/browserify.d.ts": {
-      "commit": "c594427c40354eae9dc618c50dc1c3d83da477b5"
+      "commit": "d67c5e3e1a1291ab58dcaace6ce76f69e860d33c"
     },
     "node/node.d.ts": {
-      "commit": "c594427c40354eae9dc618c50dc1c3d83da477b5"
+      "commit": "d67c5e3e1a1291ab58dcaace6ce76f69e860d33c"
     },
     "react/react.d.ts": {
-      "commit": "c594427c40354eae9dc618c50dc1c3d83da477b5"
+      "commit": "d67c5e3e1a1291ab58dcaace6ce76f69e860d33c"
     },
     "react/react-addons.d.ts": {
-      "commit": "c594427c40354eae9dc618c50dc1c3d83da477b5"
+      "commit": "d67c5e3e1a1291ab58dcaace6ce76f69e860d33c"
     },
     "react/react-global.d.ts": {
-      "commit": "c594427c40354eae9dc618c50dc1c3d83da477b5"
+      "commit": "d67c5e3e1a1291ab58dcaace6ce76f69e860d33c"
     },
     "flux/flux.d.ts": {
-      "commit": "c594427c40354eae9dc618c50dc1c3d83da477b5"
+      "commit": "d67c5e3e1a1291ab58dcaace6ce76f69e860d33c"
     }
   }
 }

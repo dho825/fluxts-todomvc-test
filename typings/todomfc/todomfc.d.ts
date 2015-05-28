@@ -33,6 +33,15 @@ interface TodoTextInputElement
   id: string;
 }
 
+interface TodoTextInputProps
+{
+  className?: string;
+  id?: string;
+  placeholder?: string;
+  onSave: (value:string) => void;
+  value?: string;
+}
+
 declare module todomfc
 {
   type TodoMap = MapStringTo<TodoData>;
